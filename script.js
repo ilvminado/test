@@ -27,8 +27,8 @@ function createButton(number) {
 function onButtonClick(number, button) {
     if (number === currentNumber) {
         currentNumber++;
-        //button.disabled = true;
-        //button.style.backgroundColor = 'lightgray';
+        button.disabled = true;
+        button.style.backgroundColor = 'lightgray';
 
         if (currentNumber > 20) {
             clearInterval(timerInterval);
@@ -58,7 +58,7 @@ function startGame() {
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
             messageElement.innerText = 'Game Over';
-            document.querySelectorAll('button').forEach(button => button.disabled = false);
+            document.querySelectorAll('button').forEach(button => button.disabled = true);
             refreshButton.style.display = 'block';
         }
     }, 1000);
