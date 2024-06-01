@@ -23,6 +23,19 @@ button {
     font-size: 24px;
     cursor: pointer;
     aspect-ratio: 1;
+    background-color: #ffffff;
+    border: 2px solid #cccccc;
+    transition: background-color 0.3s ease;
+}
+
+/* Prevent color change on click */
+button:active, button:focus {
+    background-color: #ffffff;
+    outline: none;
+}
+
+button:disabled {
+    cursor: not-allowed;
 }
 
 .timer {
