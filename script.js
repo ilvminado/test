@@ -3,7 +3,7 @@ const timerElement = document.getElementById('timer');
 const messageElement = document.getElementById('message');
 const refreshButton = document.getElementById('refresh-button');
 
-let numbers = Array.from({ length: 20}, (_, i) => i + 1);
+let numbers = Array.from({ length: 20 }, (_, i) => i + 1);
 let shuffledNumbers;
 let currentNumber;
 let timeRemaining;
@@ -28,7 +28,6 @@ function onButtonClick(number, button) {
     if (number === currentNumber) {
         currentNumber++;
         button.disabled = true;
-        button.style.backgroundColor = 'lightgray';
 
         if (currentNumber > 20) {
             clearInterval(timerInterval);
