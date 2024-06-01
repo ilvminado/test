@@ -25,7 +25,8 @@ button {
     aspect-ratio: 1;
     background-color: #ffffff;
     border: 2px solid #cccccc;
-    transition: background-color 0.3s ease;
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Prevent color change on click */
@@ -34,8 +35,10 @@ button:active, button:focus {
     outline: none;
 }
 
+/* Keep text color black when disabled */
 button:disabled {
     cursor: not-allowed;
+    color: black;
 }
 
 .timer {
