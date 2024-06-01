@@ -2,9 +2,8 @@ const gameBoard = document.getElementById('game-board');
 const timerElement = document.getElementById('timer');
 const messageElement = document.getElementById('message');
 const refreshButton = document.getElementById('refresh-button');
-const errorMessageElement = document.getElementById('error-message');
 
-let numbers = [];
+let numbers = Array.from({ length: 20 }, (_, i) => i + 1);
 let shuffledNumbers;
 let currentNumber;
 let timeRemaining;
@@ -20,7 +19,6 @@ function shuffleArray(array) {
 
 function createButton(number) {
     const button = document.createElement('button');
-    button.className = 'number-button';
     button.innerText = number;
     button.onclick = () => onButtonClick(number, button);
     return button;
@@ -32,7 +30,7 @@ function onButtonClick(number, button) {
         button.disabled = true;
         button.style.backgroundColor = 'lightgray';
 
-        if (currentNumber > Math.max(...numbers)) {
+        if (currentNumber > 20) {
             clearInterval(timerInterval);
             messageElement.innerText = 'You Win!';
             refreshButton.style.display = 'block';
@@ -40,20 +38,14 @@ function onButtonClick(number, button) {
     }
 }
 
-function startGame(start, end) {
+function startGame() {
     gameBoard.innerHTML = ''; // Clear the board
-    numbers = Array.from({ length: end - start + 1 }, (_, i) => i + start);
     shuffledNumbers = shuffleArray([...numbers]);
-    currentNumber = start;
+    currentNumber = 1;
     timeRemaining = 60;
     timerElement.innerText = `Time: ${timeRemaining}`;
     messageElement.innerText = '';
-    errorMessageElement.innerText = '';
     refreshButton.style.display = 'none';
-
-    // Determine the number of columns based on the number of buttons
-    const columns = Math.ceil(Math.sqrt(numbers.length));
-    gameBoard.style.gridTemplateColumns = `repeat(${columns}, 100px)`;
 
     shuffledNumbers.forEach(number => {
         const button = createButton(number);
@@ -66,32 +58,14 @@ function startGame(start, end) {
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
             messageElement.innerText = 'Game Over';
-            document.querySelectorAll('.number-button').forEach(button => button.disabled = true);
+            document.querySelectorAll('button').forEach(button => button.disabled = true);
             refreshButton.style.display = 'block';
         }
     }, 1000);
 }
 
-function initializeGame() {
-    const startNumber = parseInt(document.getElementById('start-number').value, 10);
-    const endNumber = parseInt(document.getElementById('end-number').value, 10);
-
-    if (isNaN(startNumber) || isNaN(endNumber)) {
-        errorMessageElement.innerText = 'Please enter valid numbers.';
-        return;
-    }
-
-    const range = endNumber - startNumber + 1;
-    if (range < 20 || range > 40) {
-        errorMessageElement.innerText = 'Please enter a range of numbers between 20 and 40.';
-        return;
-    }
-
-    startGame(startNumber, endNumber);
-}
-
 function refreshGame() {
-    initializeGame();
+    startGame();
 }
 
-initializeGame();
+startGame();
